@@ -1,7 +1,7 @@
 <div class="col-md-8 offset-md-2">
     <div class="card">
         <div class="card-header">
-            <h1>tareas</h1>
+            <h1>ENCRIPTACIÓN AES</h1>
         </div>
         <div class="card-body">
             {{#if contacts}}
@@ -23,21 +23,10 @@
             {{/if}}
         </div>
         <div class="card-footer">
-            <form action="/new-contact" method="POST">
+            <form action="/new-file" method="POST">
+               
                 <div class="form-group">
-                    <input type="text" name="firstname" placeholder="Firstname" class="form-control" autofocus>
-                </div>
-
-                <div class="form-group">
-                    <input type="text" name="lastname" placeholder="Lastname" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <input type="text" name="email" placeholder="Email" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <input type="text" name="phone" placeholder="Phone" class="form-control">
+                    <input type="file" id="archivo" name="archivo" placeholder="" class="form-control">
                 </div>
 
                 <button class="btn btn-primary btn-block">

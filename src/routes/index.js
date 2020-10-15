@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
+const fs = require('fs');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -20,17 +21,26 @@ router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros
     });
 });
 
+/*
 router.post('/new-contact', (req, res)=> {
     console.log(req.body);
     const newContact = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        phone: req.body.phone
+        //firstname: req.body.firstname,
+       
     };
 
     db.ref('contactos').push(newContact); // ref es para el nombre en el que guardarlo. El nombre de la tabla o colección
     // res.send('received'); //si quisiera mandar un mensaje
+    res.redirect('/');
+});
+*/
+
+router.post('/new-file', (req,res) =>{
+    console.log(req.body.archivo);
+
+    var texto = fs.readFileSync(req.body.archivo, 'utf8');
+    console.log(texto);
+    
     res.redirect('/');
 });
 
