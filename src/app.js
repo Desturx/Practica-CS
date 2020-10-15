@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan'); // esto es un middleware. porque estará en medio de las peticiones del servidor
 const exphbs = require('express-handlebars');
 const path = require('path'); // modulo que nos permite combinar ficheros.
+const fileUpload = require('express-fileupload');
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.set('view engine', '.hbs');
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false})); // cambiarlo a true para recibir imágenes
+app.use(fileUpload());
 
 // Routes
 app.use(require('./routes/index'));

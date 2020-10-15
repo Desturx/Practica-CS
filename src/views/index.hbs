@@ -4,26 +4,24 @@
             <h1>ENCRIPTACIÓN AES</h1>
         </div>
         <div class="card-body">
-            {{#if contacts}}
+            
+            {{#if objects}}
             <ul class="list-group ">
-                {{#each contacts}}
+                {{#each objects}}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{firstname}} 
-                    {{lastname}} /
-                    {{email}} /
-                    {{phone}}
-
-                    <a href="/delete-contact/{{@key}}" class="btn btn-danger">Delete</a>
-
+                    <div>Nombre: {{nombre}}</div>
+                    <a href="/delete-object/{{@key}}" class="btn btn-danger">Delete</a>
+                    <a href="/download-object/{{@key}}" class="btn btn-success">Download</a>
                 </li>
                 {{/each}}
             </ul>
             {{else}}
-            <p>No contacts yet.</p>
+            <p>No hay archivos subidos.</p>
             {{/if}}
+            
         </div>
         <div class="card-footer">
-            <form action="/new-file" method="POST">
+            <form action="/new-file" method="POST" encType="multipart/form-data">
                
                 <div class="form-group">
                     <input type="file" id="archivo" name="archivo" placeholder="" class="form-control">
