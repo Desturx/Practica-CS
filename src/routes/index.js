@@ -33,12 +33,13 @@ router.post('/new-file', (req, res) => {
 
     console.log('MD5: ' + req.files.archivo.md5); // la clave que vamos a usar para encriptar.
     //res.send('second TEST: ' + JSON.stringify(req.files.archivo));
-    var e_data = CryptoJS.AES.encrypt(req.files.data, '123').toString();
+    var e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), '123').toString();
 
     var cipherObject = {
         datos: e_data,
         nombre: req.files.archivo.name,
-        clave: req.files.archivo.md5
+        clave: req.files.archivo.md5,
+        tipo: req.files.archivo.mimetype
     };
 
     db.ref('objetos').push(cipherObject);
@@ -59,8 +60,11 @@ router.get('/download-object/:id', (req, res) => {
         var originalText = bytes.toString(CryptoJS.enc.Utf8);
         console.log('texto cifrado: ' + values.datos)
         console.log('texto original: '+ originalText);
+
+        // Descarga del fichero
+        res.setHeader('Content-Type', vales.datos.tipo);
         res.set({"Content-Disposition":"attachment; filename=" + values.nombre});
-        res.send(values.datos);
+        res.send(originalText);
     });
 });
 
