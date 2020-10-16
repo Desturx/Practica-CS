@@ -12,20 +12,7 @@
                     <div>Nombre: {{nombre}}</div>
                     <div>
                         <a href="/delete-object/{{@key}}" class="btn btn-danger">Borrar</a>
-                    <!--
-                        <a href="#mensajeModal">Descargar</a>
-
-                        <div class="card-footer text-muted">
-                            <a href="#" class="btn btn-outline-secondary float-right" data-toggle="modal" data-target="#myModal{{@index}}">Descargar></a>
-                        </div>
-                        <div id="mensajeModal" class="modal">
-                            <div class="modal-contenido">
-                                <a href="#">X</a>
-                                <h2></h2>
-                                <a href="/download-encrypted-object/{{@key}}" class="btn btn-success">Encriptado</a>
-                                <a href="/download-decrypted-object/{{@key}}" class="btn btn-success">Desencriptado</a>
-                                -->
-                        </div>
+                        <button onclick="mensajeModal({{{@key}}});">Descargar</button>
                     </div>
                 </li>
                 {{/each}}
