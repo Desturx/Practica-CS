@@ -1,4 +1,4 @@
-function mensajeModal(key){
+function mensajeModal(key, nombre){
     let html,div;
 
     console.log("ha entrado");
@@ -9,6 +9,7 @@ function mensajeModal(key){
     html =  '<div style="top: 15%" class="modal-dialog" role="document">';
     html += '<div class="modal-content">';
     html += '<div class="modal-header">';
+    html += '<h5>Descargar '+ nombre + '</h5>';
     html += '<button onclick="ventana.remove();" type="button" class="close" data-dismiss="modal" aria-label="Close">';
     html += '<span aria-hidden="true">&times;</span>';
     html += '</button>';

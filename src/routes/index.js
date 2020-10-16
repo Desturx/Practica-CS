@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
 const fs = require('fs');
 const CryptoJS = require("crypto-js");
-const { Decipher } = require('crypto');
+
 
 
 admin.initializeApp({
@@ -32,6 +32,9 @@ router.post('/new-encrypted-file', (req, res) => {
     // console.log('MD5: ' + req.files.archivo.md5); // la clave que vamos a usar para encriptar.
     //res.send('second TEST: ' + JSON.stringify(req.files.archivo));
     // var e_data = req.files.archivo.data;
+
+    // Hash para la contraseña
+
     var e_data;
     if(req.files.archivo.mimetype != 'text/plain')
     {
@@ -79,7 +82,7 @@ router.get('/download-decrypted-object/:id', (req, res) => {
         // {
         //     var originalText = bytes.toString(CryptoJS.enc.Utf8);
         // }
-        if(values.tipo == "image/png" || values.tipo == "image/jpeg")
+        if(values.tipo != "text/plain")
         {
             var bytes  = CryptoJS.AES.decrypt(values.datos, '123');
             var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));

@@ -12,7 +12,7 @@
                     <div>Nombre: {{nombre}}</div>
                     <div>
                         <a href="/delete-object/{{@key}}" class="btn btn-danger">Borrar</a>
-                        <button class="btn btn-success" onclick="mensajeModal('{{@key}}');">Descargar</button>
+                        <button class="btn btn-success" onclick="mensajeModal('{{@key}}', '{{nombre}}');">Descargar</button>
                     </div>
                 </li>
                 {{/each}}
