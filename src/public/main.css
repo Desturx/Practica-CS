@@ -1,1 +1,11 @@
 /* Cambios al css */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat( 4, 1fr);
+    grid-column-gap: 30px;
+    margin: 15px;
+}
+
+.btn-outline-secondary {
+  color: #83A00A;
+}

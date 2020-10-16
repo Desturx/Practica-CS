@@ -1,19 +1,31 @@
-<div class="col-md-8 offset-md-2">
+<div class="col-md-8 offset-md-2" style="min-width: 570px;">
     <div class="card">
         <div class="card-header">
-            <h1>ENCRIPTACIÓN AES</h1>
+            <h1 style="word-spacing: 20px";>ENCRIPTACIÓN  AES</h1>
         </div>
         <div class="card-body">
-            
+            <div style="text-align: right; margin-right: 10%"><h3> Descargar </h3></div>
             {{#if objects}}
             <ul class="list-group ">
                 {{#each objects}}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>Nombre: {{nombre}}</div>
                     <div>
-                        <a href="/delete-object/{{@key}}" class="btn btn-danger">Delete</a>
-                        <a href="/download-encrypted-object/{{@key}}" class="btn btn-success">Download Encrypted</a>
-                        <a href="/download-decrypted-object/{{@key}}" class="btn btn-success">Download Decrypted</a>
+                        <a href="/delete-object/{{@key}}" class="btn btn-danger">Borrar</a>
+                    <!--
+                        <a href="#mensajeModal">Descargar</a>
+
+                        <div class="card-footer text-muted">
+                            <a href="#" class="btn btn-outline-secondary float-right" data-toggle="modal" data-target="#myModal{{@index}}">Descargar></a>
+                        </div>
+                        <div id="mensajeModal" class="modal">
+                            <div class="modal-contenido">
+                                <a href="#">X</a>
+                                <h2></h2>
+                                <a href="/download-encrypted-object/{{@key}}" class="btn btn-success">Encriptado</a>
+                                <a href="/download-decrypted-object/{{@key}}" class="btn btn-success">Desencriptado</a>
+                                -->
+                        </div>
                     </div>
                 </li>
                 {{/each}}
@@ -26,11 +38,11 @@
         <div class="card-footer">
             <form action="/new-encrypted-file" method="POST" encType="multipart/form-data">
                
-                <div class="form-group">
-                    <input type="file" id="archivo" name="archivo" placeholder="" class="form-control">
+                <div style="margin-top:10px" class="form-group">
+                    <input  type="file" id="archivo" name="archivo" placeholder="" class="form-control">
                 </div>
 
-                <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 30%">
+                <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 20%">
                     Subir
                 </button>
                 
