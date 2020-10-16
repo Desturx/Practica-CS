@@ -15,6 +15,7 @@ admin.initializeApp({
 const db = admin.database();
 
 
+
 router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros, request y response.
     // console.log('Index works!');
     // res.send('received');
@@ -34,44 +35,51 @@ router.post('/new-encrypted-file', (req, res) => {
     // var e_data = req.files.archivo.data;
 
     // Hash para la contraseña
-
-    var e_data;
-    if(req.files.archivo.mimetype != 'text/plain')
+    if(req.files != null)
     {
-        e_data = CryptoJS.AES.encrypt(JSON.stringify(req.files.archivo.data), '123').toString();
+        var e_data;
+        if(req.files.archivo.mimetype != 'text/plain')
+        {
+            e_data = CryptoJS.AES.encrypt(JSON.stringify(req.files.archivo.data), '123').toString();
+        }
+        else
+        {
+            e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), '123').toString();
+        }
+    
+        var cipherObject = {
+            datos: e_data,
+            nombre: req.files.archivo.name,
+            clave: req.files.archivo.md5,
+            tipo: req.files.archivo.mimetype,
+            encriptado: true
+        };
+        db.ref('objetos').push(cipherObject);
+        // res.send(req.files.archivo.data);
+        res.redirect('/');
     }
     else
     {
-        e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), '123').toString();
+        // mensaje modal que diga que suba un archivo
+        res.redirect('/');
     }
-
-    var cipherObject = {
-        datos: e_data,
-        nombre: req.files.archivo.name,
-        clave: req.files.archivo.md5,
-        tipo: req.files.archivo.mimetype,
-        encriptado: true
-    };
-    db.ref('objetos').push(cipherObject);
-    // res.send(req.files.archivo.data);
-    res.redirect('/');
 });
 
 // Subir sin encriptar
-router.post('/new-file', (req, res) => {
-  var e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), '123').toString();
-    var e_data = req.files.archivo.data;
-    var cipherObject = {
-        datos: e_data,
-        nombre: req.files.archivo.name,
-        clave: req.files.archivo.md5,
-        tipo: req.files.archivo.mimetype,
-        encriptado: false
-    };
-    db.ref('objetos').push(cipherObject);
-    // res.send(req.files.archivo.data);
-    res.redirect('/');
-});
+// router.post('/new-file', (req, res) => {
+//   var e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), '123').toString();
+//     var e_data = req.files.archivo.data;
+//     var cipherObject = {
+//         datos: e_data,
+//         nombre: req.files.archivo.name,
+//         clave: req.files.archivo.md5,
+//         tipo: req.files.archivo.mimetype,
+//         encriptado: false
+//     };
+//     db.ref('objetos').push(cipherObject);
+//     // res.send(req.files.archivo.data);
+//     res.redirect('/');
+// });
 
 // Metodo para descargarse el archivo desencriptado
 router.get('/download-decrypted-object/:id', (req, res) => {
@@ -99,7 +107,7 @@ router.get('/download-decrypted-object/:id', (req, res) => {
         {
             var bytes  = CryptoJS.AES.decrypt(values.datos, '123');
             var originalText = bytes.toString(CryptoJS.enc.Utf8);
-            res.set({"Content-Disposition":"attachment; filename=" + values.nombre});
+            res.set({"Content-Type":"text/plain; charset=utf-8", "Content-Disposition":"attachment; filename=" + values.nombre});
             res.send(originalText);
         }
     });
@@ -126,9 +134,6 @@ router.get('/download-encrypted-object/:id', (req, res) => {
             res.send(values.datos);
         }
 
-
-    
-    
     // var file;
     // res.writeHead(200, (content_type) => {
     //     let content;
