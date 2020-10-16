@@ -1,26 +1,12 @@
 /* Cambios al css */
-
-.modal{
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-
-	background-color: rgba(5, 255, 255, .8);
+.modal-header{
+    border: none;
 }
 
-.modal-contenido{
-    background-color: #fff;
-	border: 1px solid #000;
-	width: 20em;
-	height: 20em;
-	padding: 0;
-	text-align: center;
+.modal{
+    background-color: rgba(194, 190, 190, 0.479);
+}
 
-	position: relative;
-	top: 20%;
-	left: 50%;
-    transform: translate(-50%);
-    margin: 10px;
+.modal-dialog{
+    background-color: white;
 }
