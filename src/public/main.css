@@ -1,5 +1,30 @@
 /* Cambios al css */
-.card-grid {
+.modal-contenido{
+    background-color: #fff;
+	border: 1px solid #000;
+	width: 20em;
+	height: 20em;
+	padding: 0;
+	text-align: center;
+  }
+  .modal{
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    pointer-events:none;
+    transition: all 1s;
+    opacity:0;
+  }
+
+  #mensajeModal:target{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .card-grid {
     display: grid;
     grid-template-columns: repeat( 4, 1fr);
     grid-column-gap: 30px;
@@ -7,5 +32,7 @@
 }
 
 .btn-outline-secondary {
+  //background-color: #83A00A;
+  //color: #C53A83;
   color: #83A00A;
 }
