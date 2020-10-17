@@ -62,7 +62,7 @@ router.get('/download-object/:id', (req, res) => {
         console.log('texto original: '+ originalText);
 
         // Descarga del fichero
-        res.setHeader('Content-Type', vales.datos.tipo);
+        //res.setHeader('Content-Type', values.datos.tipo);
         res.set({"Content-Disposition":"attachment; filename=" + values.nombre});
         res.send(originalText);
     });
