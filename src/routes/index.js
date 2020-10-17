@@ -105,19 +105,6 @@ router.get('/download-decrypted-object/:id', (req, res) => {
 router.get('/download-encrypted-object/:id', (req, res) => {
     db.ref('objetos/' + req.params.id).once('value', (snapshot) => {
         var values = snapshot.val();
-<<<<<<< HEAD
-        console.log(values.datos);
-        // desencriptado del texto
-        var bytes  = CryptoJS.AES.decrypt(values.datos, '123');
-        var originalText = bytes.toString(CryptoJS.enc.Utf8);
-        console.log('texto cifrado: ' + values.datos)
-        console.log('texto original: '+ originalText);
-
-        // Descarga del fichero
-        //res.setHeader('Content-Type', values.datos.tipo);
-        res.set({"Content-Disposition":"attachment; filename=" + values.nombre});
-        res.send(originalText);
-=======
 
         if(values.tipo == "image/png" || values.tipo == "image/jpeg")
         {
@@ -135,7 +122,6 @@ router.get('/download-encrypted-object/:id', (req, res) => {
             res.send(values.datos);
         }
 
->>>>>>> 637181187ec410dba1adfd1569b1397bdb912edd
     });
 });
 
