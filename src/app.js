@@ -26,6 +26,7 @@ app.use(fileUpload());
 
 // Routes
 app.use(require('./routes/index'));
+app.use(require('./routes/registro'));
 
 // Static files (los archivos que el navegador puede acceder)
 app.use(express.static(path.join(__dirname, 'public')));

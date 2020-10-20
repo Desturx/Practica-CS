@@ -2,11 +2,8 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
-const fs = require('fs');
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
-
-
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -15,7 +12,8 @@ admin.initializeApp({
 
 const db = admin.database();
 
-router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros, request y response.
+// Ruta que me devuelve la pagina Index
+router.get('/', (req, res)=> { 
     // console.log('Index works!');
     // res.send('received');
     db.ref('objetos').once('value', (snapshot) => {
