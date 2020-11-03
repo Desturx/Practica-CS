@@ -6,9 +6,7 @@ const exphbs = require('express-handlebars');
 const path = require('path'); // modulo que nos permite combinar ficheros.
 const fileUpload = require('express-fileupload');
 
-
 const app = express();
-
 
 // Settings
 app.set('port', process.env.PORT || 3000);
