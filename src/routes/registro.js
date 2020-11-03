@@ -12,4 +12,26 @@ router.get('/registro', (req, res)=> {
     res.render('registro');
 });
 
+router.post('/new-user', (req, res) => {
+
+    if(req.body.name != null && req.body.pass != null && req.body.email != null) {
+        if(req.body.pass == req.body.repitepass){
+            var user = {
+                name: req.body.name,
+                pass: req.body.pass,
+                email: req.body.email
+            };
+            console.log(user);
+            db.ref('usuario').push(user);
+            //res.redirect('/');
+        }
+        else{
+            res.send('Las contraseñas no coinciden');
+        }
+    }
+    else{
+        //res.redirect('/');
+    }
+ 
+});
 module.exports = router;
