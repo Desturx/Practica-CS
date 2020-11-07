@@ -18,7 +18,7 @@ router.post('/new-user', (req, res) => {
 
             snapshot.forEach(function (childSnapshot) {
                 var value = childSnapshot.val();
-                console.log("email : " + value.email);
+                // console.log("email : " + value.email);
         
                 if(req.body.email == value.email){
                     encontrado = true;

@@ -15,8 +15,25 @@ router.get('/login', (req, res)=> {
 router.post('/login', (req, res) => {
 
     if(req.body.email != null && req.body.pass != null) {
-     
-        res.redirect('/index');
+        var encontrado = false;
+        // var encontrado2 = false;
+        db.ref('/usuario').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                var value = childSnapshot.val();
+                console.log("email : " + value.email);
+        
+                if(req.body.email == value.email){
+                    if(req.body.pass == value.pass){
+                        console.log("pass: " + value.pass);
+                        encontrado = true;
+                    }
+                }
+            });
+
+            if(encontrado){
+                res.redirect('/index');
+            }
+        });
     }
     else{
         res.redirect('/');
