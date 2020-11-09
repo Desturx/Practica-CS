@@ -1,7 +1,7 @@
 function mensajeModal(key, nombre){
     let html,div;
 
-    console.log("ha entrado");
+
     div = document.createElement('div');
     div.classList.add('modal');
     div.setAttribute("id","ventana");

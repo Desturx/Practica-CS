@@ -14,9 +14,10 @@ router.get('/login', (req, res)=> {
 
 router.post('/login', (req, res) => {
 
+    //comprobación de que los campos del formulario
     if(req.body.email != null && req.body.pass != null) {
         var encontrado = false;
-        // var encontrado2 = false;
+        //acceso a la base de datos
         db.ref('/usuario').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 var value = childSnapshot.val();
@@ -30,8 +31,13 @@ router.post('/login', (req, res) => {
                 }
             });
 
+            //si ha ido todo bien
             if(encontrado){
                 res.redirect('/index');
+            }
+            //si no
+            else{
+
             }
         });
     }

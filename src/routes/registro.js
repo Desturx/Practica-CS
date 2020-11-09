@@ -12,7 +12,9 @@ router.get('/registro', (req, res)=> {
 
 router.post('/new-user', (req, res) => {
 
+    //comprobación de que los campos del formulario
     if(req.body.name != null && req.body.pass != null && req.body.email != null && req.body.repitepass != null) {
+        //acceso a la base de datos
         db.ref('/usuario').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
             var encontrado = false;
 

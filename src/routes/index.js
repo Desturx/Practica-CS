@@ -59,7 +59,7 @@ router.post('/new-encrypted-file', (req, res) => {
             tipo: req.files.archivo.mimetype
         };
 
-        db.ref('objetos').push(cipherObject); // Subo el objeto a la base de datos.
+        db.ref(id_usuario + '/objetos').push(cipherObject); // Subo el objeto a la base de datos.
         res.redirect('/');
     }
     else // Si no recibe archivo, lo redirije al index.
