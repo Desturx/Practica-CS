@@ -2,8 +2,11 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
+const fs = require('fs');
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
+
+
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -12,8 +15,17 @@ admin.initializeApp({
 
 const db = admin.database();
 
-// Ruta que me devuelve la pagina Index
-router.get('/', (req, res)=> { 
+function randomid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+
+router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros, request y response.
     // console.log('Index works!');
     // res.send('received');
     db.ref('objetos').once('value', (snapshot) => {
@@ -28,13 +40,13 @@ router.post('/new-encrypted-file', (req, res) => {
     if(req.files != null) // Se comprueba que el archivo existe.
     {
         // Generamos una contraseña para encriptar y la hasheamos
-        const saltRounds = 10;
+        // const saltRounds = 10;
         var datetime = new Date();
         // la contraseña la genero con el md5 del archivo, el nombre y la fecha de subida.
-        var password = req.files.archivo.md5.toString() + req.files.archivo.name.toString() + datetime.toString();
+        var password = randomid(32);
         // console.log(password);
         // Encripto la contraseña.
-        var hash = bcrypt.hashSync(password, saltRounds);
+        // var hash = bcrypt.hashSync(password, saltRounds);
 
 
         var e_data; // Variable para almacenar el archivo encriptado
@@ -43,19 +55,19 @@ router.post('/new-encrypted-file', (req, res) => {
         if(req.files.archivo.mimetype != 'text/plain') 
         {
             // Si es de tipo archivo lo convertimos a objeto JSON.
-            e_data = CryptoJS.AES.encrypt(JSON.stringify(req.files.archivo.data), hash).toString();
+            e_data = CryptoJS.AES.encrypt(JSON.stringify(req.files.archivo.data), password).toString();
         }
         else
         {
             // Si solo es fichero de texto convertimos el contenido a string y lo almacenamos
-            e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), hash).toString();
+            e_data = CryptoJS.AES.encrypt(req.files.archivo.data.toString(), password).toString();
         }
         
         // Objeto que se subirá a la base de datos.
         var cipherObject = {
             datos: e_data,
             nombre: req.files.archivo.name,
-            clave: hash,
+            clave: password,
             tipo: req.files.archivo.mimetype
         };
 
@@ -108,7 +120,7 @@ router.get('/download-encrypted-object/:id', (req, res) => {
         {
             var file = Buffer.from(values.datos, 'base64');
             res.writeHead(200, {
-              'Content-Disposition':"attachment; filename=" + values.nombre,  
+              'Content-Disposition':"attachment; filename=" +  values.nombre,  
               'Content-Type': values.tipo,
               'Content-Length': file.length
             });
