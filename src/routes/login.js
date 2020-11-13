@@ -18,22 +18,25 @@ router.post('/login', (req, res) => {
     if(req.body.email != null && req.body.pass != null) {
         var encontrado = false;
         //acceso a la base de datos
-        db.ref('/usuario').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
+        db.ref('/usuarios').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 var value = childSnapshot.val();
                 console.log("email : " + value.email);
-        
+                req.session.idUsu = childSnapshot.key;
                 if(req.body.email == value.email){
                     if(req.body.pass == value.pass){
                         console.log("pass: " + value.pass);
                         encontrado = true;
+
                     }
                 }
             });
 
             //si ha ido todo bien
             if(encontrado){
-                res.redirect('/index');
+                req.session.logueado = true;
+                
+                res.redirect('/');
             }
             //si no
             else{

@@ -4,6 +4,7 @@ const morgan = require('morgan'); // esto es un middleware. porque estará en me
 const exphbs = require('express-handlebars');
 const path = require('path'); // modulo que nos permite combinar ficheros.
 const fileUpload = require('express-fileupload');
+var session = require('express-session');
 
 const app = express();
 
@@ -20,6 +21,13 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false})); // cambiarlo a true para recibir imágenes
 app.use(fileUpload());
+app.use(session({
+    secret:"PracticaCs",
+    resave: false,
+    saveUninitialized: true,
+    cookie:{}
+}));
+
 
 // Routes
 app.use(require('./routes/index'));
@@ -30,3 +38,6 @@ app.use(require('./routes/login'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
+
+
+

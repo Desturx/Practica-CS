@@ -25,13 +25,21 @@ function randomid(length) {
     return result;
  }
 
+
+
 router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros, request y response.
     // console.log('Index works!');
     // res.send('received');
-    db.ref('objetos').once('value', (snapshot) => {
-        const data = snapshot.val();
-        res.render('index', { objects: data });
-    });
+
+    if(req.session.logueado){
+        db.ref('usuarios/'+ req.session.idUsu +'objetos').once('value', (snapshot) => {
+            const data = snapshot.val();
+            res.render('index', { objects: data });
+        });
+    }
+    else{
+        res.redirect('/login');
+    }
 });
 
 // Subir encriptando
@@ -71,7 +79,7 @@ router.post('/new-encrypted-file', (req, res) => {
             tipo: req.files.archivo.mimetype
         };
 
-        db.ref(id_usuario + '/objetos').push(cipherObject); // Subo el objeto a la base de datos.
+        db.ref('usuarios/'+ req.session.idUsu +'objetos' ).push(cipherObject); // Subo el objeto a la base de datos.
         res.redirect('/');
     }
     else // Si no recibe archivo, lo redirije al index.
@@ -82,7 +90,7 @@ router.post('/new-encrypted-file', (req, res) => {
 
 // Metodo para descargarse el archivo desencriptado
 router.get('/download-decrypted-object/:id', (req, res) => {
-    db.ref('objetos/' + req.params.id).once('value', (snapshot) => { // sacar los valores de la consulta de la coleccion 'objetos'.
+    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).once('value', (snapshot) => { // sacar los valores de la consulta de la coleccion 'objetos'.
         var values = snapshot.val();  // estos son los valores que hay en la coleccion.
         
         // Compruebo si es un archivo o un texto.
@@ -113,7 +121,7 @@ router.get('/download-decrypted-object/:id', (req, res) => {
 // Descargar archivo sin desencriptar
 // Los pasos son los mismos que para descargalo pero sin desencriptarlo.
 router.get('/download-encrypted-object/:id', (req, res) => {
-    db.ref('objetos/' + req.params.id).once('value', (snapshot) => {
+    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).once('value', (snapshot) => {
         var values = snapshot.val();
 
         if(values.tipo == "image/png" || values.tipo == "image/jpeg")
@@ -137,9 +145,13 @@ router.get('/download-encrypted-object/:id', (req, res) => {
 
 // Request para eliminar un objeto con el id pasado por la url.
 router.get('/delete-object/:id', (req, res) => {
-    db.ref('objetos/' + req.params.id).remove(); // Hace una petición a la base de datos con la colección/laIdDelObjeto para eliminarlo.
+    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).remove(); // Hace una petición a la base de datos con la colección/laIdDelObjeto para eliminarlo.
     res.redirect('/');
 }); 
 
 
 module.exports = router; // Exporto el objeto router.
+
+
+
+
