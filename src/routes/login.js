@@ -28,7 +28,8 @@ router.post('/login', (req, res) => {
                 if(req.body.email == value.email){
                     if(bcrypt.compareSync(req.body.pass, value.pass)){
                         encontrado = true;
-                        req.session.idUsu = childSnapshot.key; // sacamos el id del usuario para luego hacer push en la base de datos.
+                        // sacamos el id del usuario para luego hacer push en la base de datos.
+                        req.session.idUsu = childSnapshot.key; 
                         req.session.pass = req.body.pass;
                         if(req.body.recordarme)
                         {
