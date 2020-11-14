@@ -16,21 +16,25 @@ router.post('/login', (req, res) => {
     //comprobación de que los campos del formulario
     if(req.body.email != null && req.body.pass != null) {
         var encontrado = false;
+        console.log(req.body.recordarme)
         //acceso a la base de datos
         db.ref('/usuarios').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 
                 var value = childSnapshot.val();
-                // console.log("email : " + value.email);
-                console.log("id usu: " + req.session.idUsu);
                 
                 if(req.body.email == value.email){
                     if(req.body.pass == value.pass){
-                        // console.log("pass: " + value.pass);
                         encontrado = true;
                         req.session.idUsu = childSnapshot.key; // sacamos el id del usuario para luego hacer push en la base de datos.
+                        if(req.body.recordarme)
+                        {
+                            // Aqui usaríamos cookies
+                            console.log("EL USUARIO QUIERE RECORDAR SU INICIO DE SESION");
+                        }
                     }
                 }
+
             });
 
             if(encontrado)  //si ha ido todo bien
@@ -42,7 +46,6 @@ router.post('/login', (req, res) => {
             {
                 // Mandar mensaje modal
                 res.render('login', { showModal: true }); 
-                // console.log("MOSTRAR MODAAAL");          
             }
         });
     }

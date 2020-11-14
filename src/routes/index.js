@@ -90,7 +90,7 @@ router.post('/new-encrypted-file', (req, res) => {
 
 // Metodo para descargarse el archivo desencriptado
 router.get('/download-decrypted-object/:id', (req, res) => {
-    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).once('value', (snapshot) => { // sacar los valores de la consulta de la coleccion 'objetos'.
+    db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).once('value', (snapshot) => { // sacar los valores de la consulta de la coleccion 'objetos'.
         var values = snapshot.val();  // estos son los valores que hay en la coleccion.
         
         // Compruebo si es un archivo o un texto.
@@ -121,7 +121,7 @@ router.get('/download-decrypted-object/:id', (req, res) => {
 // Descargar archivo sin desencriptar
 // Los pasos son los mismos que para descargalo pero sin desencriptarlo.
 router.get('/download-encrypted-object/:id', (req, res) => {
-    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).once('value', (snapshot) => {
+    db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).once('value', (snapshot) => {
         var values = snapshot.val();
 
         if(values.tipo == "image/png" || values.tipo == "image/jpeg")
@@ -145,7 +145,7 @@ router.get('/download-encrypted-object/:id', (req, res) => {
 
 // Request para eliminar un objeto con el id pasado por la url.
 router.get('/delete-object/:id', (req, res) => {
-    db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).remove(); // Hace una petición a la base de datos con la colección/laIdDelObjeto para eliminarlo.
+    db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).remove(); // Hace una petición a la base de datos con la colección/laIdDelObjeto para eliminarlo.
     res.redirect('/');
 }); 
 
