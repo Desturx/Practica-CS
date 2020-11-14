@@ -60,31 +60,10 @@ function falloSubirArchivo()
 
 }
 
-function modalError(titulo, desc) 
+function errMensaje(pagina, mensaje) 
 {
-    let html,div;
-        div = document.createElement('div');
-        div.classList.add('modal');
-        div.setAttribute("id","ventana");
-    
-        html =  '<div style="top: 15%" class="modal-dialog" role="document">';
-        html += '<div class="modal-content">';
-        html += '<div class="modal-header" >';
-        html += '<h5>'+ titulo + '</h5>';
-        html += '<button onclick="ventana.remove();" type="button" class="close" data-dismiss="modal" aria-label="Close">';
-        html += '<span aria-hidden="true">&times;</span>';
-        html += '</button>';
-        html += '</div>';
-        html += '<div style="text-align: center" class="modal-body">';
-        html += '<p>' + desc + '</p>'
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        
-        div.innerHTML = html;
-    
-        document.getElementById('inicio').appendChild(div);
-        document.getElementById('ventana').style.display="block";
+    document.getElementById(pagina).innerHTML = mensaje;
+
 }
 
 function cerrar()

@@ -28,7 +28,24 @@ router.post('/new-user', (req, res) => {
             });
 
             if(!encontrado){
+                let check1 = false;
+                let check2 = false;
+
+                if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(req.body.email)){
+                    check1 = true;
+                }
+                else{
+                    res.render('registro', {emailErr: true}); 
+
+                }
                 if(req.body.pass == req.body.repitepass){
+                    check2 = true;
+                }
+                else{
+                    res.render('registro', {contraErr: true}); 
+                }
+
+                if(check1 && check2){
                     var user = {
                         name: req.body.name,
                         pass: req.body.pass,
@@ -37,13 +54,11 @@ router.post('/new-user', (req, res) => {
                     db.ref('usuarios').push(user);
                     res.redirect('/');
                 }
-                else{
-                    res.send('Las contraseñas no coinciden');
-                }
             }
             else
             {
-                res.send('El email ya existe');
+                res.render('registro', {errMensaje: true}); 
+
             }       
         });
     }

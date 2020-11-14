@@ -15,10 +15,11 @@
                <!-- Contraseña -->
                <div class="form-group">
                    <label for="pass">Contraseña</label>
-                   <input type="password" name="pass" class="form-control" placeholder="contraseña para acceder al sitio">
+                   <input type="password" name="pass" class="form-control" placeholder="">
                </div>
-               
-                 <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 50%">
+                <p><a href="/registro"> Registrarse</a></p>
+                <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errorMensaje"> </p>
+                 <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 20%">
                     Iniciar sesión
                 </button>
                 <div class="custom-control custom-checkbox">
@@ -31,9 +32,10 @@
         </div>
     </div>
 </div>
+
  {{#if showModal}}
     <script>
-        modalError("Error en el login", "Alguno de los campos es incorrecto");
+        errMensaje("errorMensaje", "Error en el login, alguno de los campos son incorrectos");
 
     </script>
 {{/if}}
