@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const db = admin.database();
 
 router.get('/registro', (req, res)=> { 
@@ -46,11 +47,13 @@ router.post('/new-user', (req, res) => {
                 }
 
                 if(check1 && check2){
+                    var hash = bcrypt.hashSync(req.body.pass, saltRounds);
                     var user = {
                         name: req.body.name,
-                        pass: req.body.pass,
+                        pass: hash,
                         email: req.body.email
                     };
+                   
                     db.ref('usuarios').push(user);
                     res.redirect('/');
                 }
