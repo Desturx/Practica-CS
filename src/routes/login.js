@@ -44,11 +44,7 @@ router.post('/login', (req, res) => {
             }
             else // si no
             {
-                res.render('login', { showModal: true }); 
-<<<<<<< HEAD
-=======
-       
->>>>>>> 156c813... Mensajes error
+                res.render('login', { showModal: true });
             }
         });
     }
