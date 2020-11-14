@@ -1,0 +1,12 @@
+/* Cambios al css */
+.modal-header{
+    border: none;
+}
+
+.modal{
+    background-color: rgba(194, 190, 190, 0.479);
+}
+
+.modal-dialog{
+    background-color: white;
+}
