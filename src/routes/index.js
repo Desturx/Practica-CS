@@ -15,7 +15,8 @@ admin.initializeApp({
 
 const db = admin.database();
 
-function randomid(length) {
+function randomid(length) 
+{
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -31,13 +32,15 @@ router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros
     // console.log('Index works!');
     // res.send('received');
 
-    if(req.session.logueado){
+    if(req.session.logueado) // si el usuario se ha logueado
+    {
         db.ref('usuarios/'+ req.session.idUsu +'objetos').once('value', (snapshot) => {
             const data = snapshot.val();
             res.render('index', { objects: data });
         });
     }
-    else{
+    else // si el usuario no se ha logeado se hace redirect a login
+    {
         res.redirect('/login');
     }
 });

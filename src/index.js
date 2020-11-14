@@ -1,7 +1,6 @@
 const app = require('./app');
 const fp = require("find-free-port");
 
-
 const port = app.get('port');
 
 // Finding an empty port
