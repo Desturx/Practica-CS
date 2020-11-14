@@ -10,12 +10,12 @@
                <!-- Correo -->
                <div class="form-group">
                    <label for="email">Correo</label>
-                   <input type="text" name="email" class="form-control" placeholder="miCorreo@gmail.com">
+                   <input type="text" name="email" class="form-control" placeholder="ej: miCorreo@gmail.com">
                </div>
                <!-- Contraseña -->
                <div class="form-group">
                    <label for="pass">Contraseña</label>
-                   <input type="password" name="pass" class="form-control" placeholder="">
+                   <input type="password" name="pass" class="form-control" placeholder="Contraseña">
                </div>
                 <p><a href="/registro"> Registrarse</a></p>
                 <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errorMensaje"> </p>
@@ -35,7 +35,7 @@
 
  {{#if showModal}}
     <script>
-        errMensaje("errorMensaje", "Error en el login, alguno de los campos es incorrecto");
+        errMensaje("errorMensaje", "Error en el login, algunos de los campos son incorrectos");
 
     </script>
 {{/if}}
