@@ -63,7 +63,7 @@ router.post('/new-user', (req, res) => {
         });
     }
     else{
-        //res.redirect('/');
+        res.render('registro', {errMensaje2: true});
     }
  
 });

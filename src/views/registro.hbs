@@ -45,13 +45,20 @@
 
  {{#if errMensaje}}
     <script>
-        errMensaje("errorMensajeReg","Error al registrase, el email ya existe");
+        errMensaje("errorMensajeReg","Error al registrarse, el email ya existe");
+    </script>
+{{/if}}
+
+
+ {{#if errMensaje2}}
+    <script>
+        errMensaje("errorMensajeReg","Error al registrarse, alguno de los campos está vacío");
     </script>
 {{/if}}
 
  {{#if contraErr}}
     <script>
-        errMensaje("errorMensajeReg", "Error al registrase, las contraseñas no coinciden");
+        errMensaje("errorMensajeReg", "Error al registrarse, las contraseñas no coinciden");
     </script>
 {{/if}}
 
