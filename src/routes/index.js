@@ -2,8 +2,8 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
-const CryptoJS = require("crypto-js");
-const bcrypt = require('bcrypt');
+const CryptoJS = require('crypto-js');
+const cryptico = require('cryptico');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -12,16 +12,20 @@ admin.initializeApp({
 
 const db = admin.database();
 
+const Bits = 1024; 
+
+
 function randomid(length) 
 {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+}
+
 
 
 
@@ -52,9 +56,10 @@ router.post('/new-encrypted-file', (req, res) => {
         var datetime = new Date();
         // la contraseña la genero con el md5 del archivo, el nombre y la fecha de subida.
         var password = randomid(32);
-        // console.log(password);
         // Encripto la contraseña.
-        // var hash = bcrypt.hashSync(password, saltRounds);
+        var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
+        var publicKeyString = cryptico.publicKeyString(publicKey);       
+        var encryptPassword = cryptico.encrypt(password, publicKeyString);
 
 
         var e_data; // Variable para almacenar el archivo encriptado
@@ -75,7 +80,7 @@ router.post('/new-encrypted-file', (req, res) => {
         var cipherObject = {
             datos: e_data,
             nombre: req.files.archivo.name,
-            clave: password,
+            clave: encryptPassword.cipher,
             tipo: req.files.archivo.mimetype
         };
 
@@ -93,10 +98,14 @@ router.get('/download-decrypted-object/:id', (req, res) => {
     db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).once('value', (snapshot) => { // sacar los valores de la consulta de la coleccion 'objetos'.
         var values = snapshot.val();  // estos son los valores que hay en la coleccion.
         
+        // desencriptar la contraseña
+        var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
+        var decryptedPass = cryptico.decrypt(values.clave, publicKey);
+
         // Compruebo si es un archivo o un texto.
         if(values.tipo != "text/plain") // Si es de tipo archivo
         {
-            var bytes  = CryptoJS.AES.decrypt(values.datos, values.clave); // primero desencripto los datos 
+            var bytes  = CryptoJS.AES.decrypt(values.datos, decryptedPass.plaintext); // primero desencripto los datos 
             var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)); // los convirto a JSON para poderlos trabajar.
 
             var file = Buffer.from(decryptedData, 'base64'); // Si es un archivo multimedia lo codifico a base64 para que se pueda leer.
@@ -109,7 +118,7 @@ router.get('/download-decrypted-object/:id', (req, res) => {
         }
         else // si es de tipo text/plain (.txt)
         {
-            var bytes  = CryptoJS.AES.decrypt(values.datos, values.clave);
+            var bytes  = CryptoJS.AES.decrypt(values.datos, decryptedPass);
             var originalText = bytes.toString(CryptoJS.enc.Utf8);
             //Cabecera para mandar el archivo descargable.
             res.set({"Content-Disposition":"attachment; filename=" + values.nombre});

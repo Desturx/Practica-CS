@@ -27,6 +27,7 @@ router.post('/login', (req, res) => {
                     if(req.body.pass == value.pass){
                         encontrado = true;
                         req.session.idUsu = childSnapshot.key; // sacamos el id del usuario para luego hacer push en la base de datos.
+                        req.session.pass = req.body.pass;
                         if(req.body.recordarme)
                         {
                             // Aqui usaríamos cookies
