@@ -2,8 +2,10 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
+
 const modalTools = require('../public/modal');
 const db = admin.database();
+
 
 router.get('/login', (req, res)=> { 
     // console.log('Index works!');
@@ -24,7 +26,7 @@ router.post('/login', (req, res) => {
                 var value = childSnapshot.val();
                 
                 if(req.body.email == value.email){
-                    if(req.body.pass == value.pass){
+                    if(bcrypt.compareSync(req.body.pass, value.pass)){
                         encontrado = true;
                         req.session.idUsu = childSnapshot.key; // sacamos el id del usuario para luego hacer push en la base de datos.
                         req.session.pass = req.body.pass;
