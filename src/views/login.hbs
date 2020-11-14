@@ -4,6 +4,8 @@
             <h1 style="word-spacing: 20px;";>Login</h1>
         </div>
         <div class="card-body">
+           
+
             <form action="/login" method="POST">
                <!-- Correo -->
                <div class="form-group">
@@ -18,12 +20,16 @@
                
                  <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 50%">
                     Iniciar sesión
-            </button>
-            </button>
+                </button>
             </form>
         </div>
         <div class="card-footer">
-        
         </div>
     </div>
 </div>
+ {{#if showModal}}
+    <script>
+        modalError("Error en el login", "Alguno de los campos es incorrecto");
+
+    </script>
+{{/if}}

@@ -2,11 +2,8 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
-const fs = require('fs');
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
-
-
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -34,7 +31,7 @@ router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros
 
     if(req.session.logueado) // si el usuario se ha logueado
     {
-        db.ref('usuarios/'+ req.session.idUsu +'objetos').once('value', (snapshot) => {
+        db.ref('usuarios/'+ req.session.idUsu +'/objetos').once('value', (snapshot) => {
             const data = snapshot.val();
             res.render('index', { objects: data });
         });
@@ -82,7 +79,7 @@ router.post('/new-encrypted-file', (req, res) => {
             tipo: req.files.archivo.mimetype
         };
 
-        db.ref('usuarios/'+ req.session.idUsu +'objetos' ).push(cipherObject); // Subo el objeto a la base de datos.
+        db.ref('usuarios/'+ req.session.idUsu +'/objetos' ).push(cipherObject); // Subo el objeto a la base de datos.
         res.redirect('/');
     }
     else // Si no recibe archivo, lo redirije al index.
@@ -151,7 +148,6 @@ router.get('/delete-object/:id', (req, res) => {
     db.ref('usuarios/'+ req.session.idUsu +'objetos/' + req.params.id).remove(); // Hace una petición a la base de datos con la colección/laIdDelObjeto para eliminarlo.
     res.redirect('/');
 }); 
-
 
 module.exports = router; // Exporto el objeto router.
 

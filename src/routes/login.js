@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
-var serviceAccount = require("../../node-firebase-8d30f-firebase-adminsdk-awb9f-7eca4cdf67.json");
 const bcrypt = require('bcrypt');
-
+const modalTools = require('../public/modal');
 const db = admin.database();
 
 router.get('/login', (req, res)=> { 
@@ -20,27 +19,30 @@ router.post('/login', (req, res) => {
         //acceso a la base de datos
         db.ref('/usuarios').orderByChild('email').equalTo(req.body.email).once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
+                
                 var value = childSnapshot.val();
-                console.log("email : " + value.email);
-                req.session.idUsu = childSnapshot.key;
+                // console.log("email : " + value.email);
+                console.log("id usu: " + req.session.idUsu);
+                
                 if(req.body.email == value.email){
                     if(req.body.pass == value.pass){
-                        console.log("pass: " + value.pass);
+                        // console.log("pass: " + value.pass);
                         encontrado = true;
-
+                        req.session.idUsu = childSnapshot.key; // sacamos el id del usuario para luego hacer push en la base de datos.
                     }
                 }
             });
 
-            //si ha ido todo bien
-            if(encontrado){
+            if(encontrado)  //si ha ido todo bien
+            {
                 req.session.logueado = true;
-                
                 res.redirect('/');
             }
-            //si no
-            else{
-
+            else // si no
+            {
+                // Mandar mensaje modal
+                res.render('login', { showModal: true }); 
+                // console.log("MOSTRAR MODAAAL");          
             }
         });
     }
