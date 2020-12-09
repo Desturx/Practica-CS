@@ -4,19 +4,35 @@
             <h1 style="word-spacing: 20px;";>Login</h1>
         </div>
         <div class="card-body">
-           
-
             <form action="/login" method="POST">
                <!-- Correo -->
-               <div class="form-group">
-                   <label for="email">Correo</label>
-                   <input type="text" name="email" class="form-control" placeholder="ej: miCorreo@gmail.com">
+               <div class="field">
+                   <label for="email" class="label">Correo</label>
+                   <input type="email" name="email" class="input" placeholder="">
+             
                </div>
                <!-- Contraseña -->
-               <div class="form-group">
-                   <label for="pass">Contraseña</label>
-                   <input type="password" name="pass" class="form-control" placeholder="Contraseña">
+               <div class="field">
+                    <label for="password" class="label">Contraseña</label>
+                    <input type="password" name="pass" id="pass" onkeyup="validatePass();" class="input" placeholder="">
                </div>
+
+                <div class="strength">
+                    <span id="bar1" class="bar bar-1"></span>
+                    <span id="bar2" class="bar bar-2"></span>
+                    <span id="bar3" class="bar bar-3"></span>
+                    <span id="bar4" class="bar bar-4"></span>
+
+                </div>
+                 <ul>
+                    <li><span id="caracteres" class="icon-cancel" ></span>Debe contener al menos 6 carácteres</li>
+                    <li><span id="mayus" class="icon-cancel"></span>Debe contener al menos una letra mayúscula</li>
+                    <li><span id="num" class="icon-cancel"></span></span>Debe contener al menos un número</li>
+                    <li><span id="especial" class="icon-cancel"></span>Debe contener al menos un carácter especial ($&+,.:;=?@#_)</li>
+                </ul>
+
+
+
                 <p><a href="/registro"> Registrarse</a></p>
                 <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errorMensaje"> </p>
                  <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 20%">
@@ -32,6 +48,8 @@
         </div>
     </div>
 </div>
+
+
 
  {{#if showModal}}
     <script>

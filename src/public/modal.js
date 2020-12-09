@@ -63,11 +63,154 @@ function falloSubirArchivo()
 function errMensaje(pagina, mensaje) 
 {
     document.getElementById(pagina).innerHTML = mensaje;
-
 }
 
 function cerrar()
 {
 	//para cerrar el mensaje modal. 
 	document.querySelector('modal').remove();
+}
+
+
+
+function validatePass() {
+    //comprueba si la longitud es 6 o mayor
+    if(document.getElementById("pass").value.length >= 6){
+        document.getElementById("caracteres").className = "icon-check";
+        if(document.getElementById("bar1").className == "bar bar-1"){
+            console.log(document.getElementById("bar1").className == "bar bar-1");
+            document.getElementById("bar1").className = "bar2 bar-1";
+
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar2").className = "bar2 bar-2";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar3").className = "bar2 bar-3";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar4").className = "bar2 bar-4";
+        }
+
+    }
+    else{
+        document.getElementById("caracteres").className = "icon-cancel";
+        if(document.getElementById("bar4").className == "bar2 bar-4"){
+            document.getElementById("bar4").className == "bar bar-4";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar3").className = "bar bar-3";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar2").className = "bar bar-2";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar1").className = "bar bar-1";
+        }
+    }
+
+
+    //comprueba si hay mayus
+    if(document.getElementById("pass").value.search(/[A-Z]/) > -1){
+        document.getElementById("mayus").className = "icon-check";
+        if(document.getElementById("bar1").className == "bar bar-1"){
+            console.log(document.getElementById("bar1").className == "bar bar-1");
+            document.getElementById("bar1").className = "bar2 bar-1";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar2").className = "bar2 bar-2";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar3").className = "bar2 bar-3";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar4").className = "bar2 bar-4";
+        }
+    }
+    else{
+        document.getElementById("mayus").className = "icon-cancel";
+        document.getElementById("caracteres").className = "icon-cancel";
+        if(document.getElementById("bar4").className == "bar2 bar-4"){
+            document.getElementById("bar4").className == "bar bar-4";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar3").className = "bar bar-3";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar2").className = "bar bar-2";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar1").className = "bar bar-1";
+        }
+    }
+
+    //comprueba si contiene algun numero
+    if(document.getElementById("pass").value.search(/[0-9]/) > -1){
+        document.getElementById("num").className = "icon-check";
+        if(document.getElementById("bar1").className == "bar bar-1"){
+            console.log(document.getElementById("bar1").className == "bar bar-1");
+            document.getElementById("bar1").className = "bar2 bar-1";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar2").className = "bar2 bar-2";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar3").className = "bar2 bar-3";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar4").className = "bar2 bar-4";
+        }
+    }
+    else{
+        document.getElementById("num").className = "icon-cancel";
+        if(document.getElementById("bar4").className == "bar2 bar-4"){
+            document.getElementById("bar4").className == "bar bar-4";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar3").className = "bar bar-3";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar2").className = "bar bar-2";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar1").className = "bar bar-1";
+        }
+    }
+
+    //comprueba si tiene caracter especial
+    if(document.getElementById("pass").value.search(/[.$&+,:;=?@#_]/) > -1){
+        document.getElementById("especial").className = "icon-check";
+        if(document.getElementById("bar1").className == "bar bar-1"){
+            console.log(document.getElementById("bar1").className == "bar bar-1");
+            document.getElementById("bar1").className = "bar2 bar-1";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar2").className = "bar2 bar-2";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar3").className = "bar2 bar-3";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar4").className = "bar2 bar-4";
+        }
+    }
+    else{
+        document.getElementById("especial").className = "icon-cancel";
+        if(document.getElementById("bar4").className == "bar2 bar-4"){
+            document.getElementById("bar4").className == "bar bar-4";
+        }
+        else if(document.getElementById("bar3").className == "bar2 bar-3"){
+            document.getElementById("bar3").className = "bar bar-3";
+        }
+        else if(document.getElementById("bar2").className == "bar2 bar-2"){
+            document.getElementById("bar2").className = "bar bar-2";
+        }
+        else if(document.getElementById("bar1").className == "bar2 bar-1"){
+            document.getElementById("bar1").className = "bar bar-1";
+        }
+    }
+
+   
+
+
 }
