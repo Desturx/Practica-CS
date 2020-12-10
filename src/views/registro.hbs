@@ -3,35 +3,52 @@
         <div class="card-header" style="text-align: center;">
             <h1 style="word-spacing: 20px;";>Registro</h1>
         </div>
-        <div class="card-body">
+        <div class="card-body"  style="margin-left: 12%;">
             <form action="/new-user" method="POST">
-               <!-- Nombre -->
-               <div class="form-group">
-                   <label for="name">Nombre de usuario</label>
-                   <input type="text" name="name" class="form-control" placeholder="Nombre">
-               </div>
-               <!-- Correo -->
-               <div class="form-group">
-                   <label for="email">Correo</label>
-                   <input type="text" name="email" class="form-control" placeholder="ej: miCorreo@gmail.com">
-                    <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errEmail"> </p>
-
-               </div>
-               <!-- Contraseña -->
-               <div class="form-group">
+                <!-- Nombre -->
+                <div class="field">
+                    <label for="name" class="label">Nombre de usuario</label>
+                    <input type="text" name="name" class="input" placeholder="Nombre">
+                </div>
+                <!-- Correo -->
+                <div class="field">
+                    <label for="email" class="label">Correo</label>
+                    <input type="email" name="email" class="input" placeholder="ej: miCorreo@gmail.com">
+                </div>
+                <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errEmail"> </p>
+                <!-- Contraseña -->
+                <div class="field" style="margin-bottom: 5px;">
                     {{!-- <p style="font-size:15px; color:red" id="errLength"> </p> --}}
 
-                   <label for="pass">Contraseña</label>
-                   <input type="password" name="pass" class="form-control" placeholder="Contraseña">
-               </div>
+                    <label for="pass" class="label">Contraseña</label>
+                    <input type="password" name="pass" class="input" id="pass" onkeyup="validatePass();" placeholder="Contraseña">
+                </div>
+                    <div class="field" style="margin-top: 0px; width: 60%; float: right;">
+                    <input type="password" name="repitepass" class="input" style="margin-left: 8px" placeholder="Repita la contraseña">
+                </div>
+
+                <div>
+                    <div class="strength">
+                        <span id="bar1" class="bar bar-1"></span>
+                        <span id="bar2" class="bar bar-2"></span>
+                        <span id="bar3" class="bar bar-3"></span>
+                        <span id="bar4" class="bar bar-4"></span>
+
+                    </div>
+                    <ul style="font-size: 15px;">
+                        <li><span id="caracteres" class="icon-cancel" ></span>Debe contener al menos 6 carácteres</li>
+                        <li><span id="mayus" class="icon-cancel"></span>Debe contener al menos una letra mayúscula</li>
+                        <li><span id="num" class="icon-cancel"></span></span>Debe contener al menos un número</li>
+                        <li><span id="especial" class="icon-cancel"></span>Debe contener al menos un carácter especial ($ & + , . : ; = ? @ # _)</li>
+                    </ul>
+                </div>
+
                <!-- Repetir Contraseña -->
-               <div class="form-group">
-                   <input type="password" name="repitepass" class="form-control" placeholder="Repita la contraseña">
-               </div>
+             
 
                 <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errorMensajeReg"> </p>
 
-                <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 20%">
+                <button class="btn btn-primary btn-block" style=" margin-top:60px; margin-left: auto; margin-right: auto; width: 22%">
                     Registrarse
                 </button>
             </form>
