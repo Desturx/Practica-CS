@@ -30,6 +30,37 @@ function mensajeModal(key, nombre)
 
 }
 
+function shareModal(key)
+{
+    let html,div;
+    div = document.createElement('div');
+    div.classList.add('modal');
+    div.setAttribute("id","ventana");
+
+    html =  '<div style="top: 15%" class="modal-dialog" role="document">';
+    html += '<div class="modal-content">';
+    html += '<div class="modal-header">';
+    html += '<button onclick="ventana.remove();" type="button" class="close" data-dismiss="modal" aria-label="Close">';
+    html += '<span aria-hidden="true">&times;</span>';
+    html += '</button>';
+    html += '</div>';
+    html += '<div style="text-align: center" class="modal-body">';
+    html += '<form action="/share/'+key+'" method="POST">'
+    html += '<label for="email">Escribe un correo para mandar el archivo:</label>'
+    html += '<input type="text" name="email">'
+    html += '<button class="btn btn-info">Enviar</button>';
+    html += '</form>'
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    
+
+    div.innerHTML = html;
+
+    document.getElementById('inicio').appendChild(div);
+    document.getElementById('ventana').style.display="block";
+}
+
 function falloSubirArchivo()
 {
     let html,div;
