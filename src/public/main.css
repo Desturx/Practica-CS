@@ -23,21 +23,10 @@ form{
     border-bottom: 2px dashed var(--text-color);
     margin: 4rem auto 1rem;
     transition: 500ms;
+    flex-direction: row;
+    display: flex;
 }
- 
-.field::after {
-    content: "";
-    position: relative;
-    display: block;
-    height: 4px;
-    width: 100%;
-    background: orchid;
-    transform: scaleX(0);
-    transform-origin: 0%;
-    opacity: 0;
-    transition: all 500ms ease;
-    top: 2px;
-}
+
 .field:focus-within {
     border-color: transparent;
 }
@@ -49,6 +38,7 @@ form{
 .label {
     color:var(--text-color);
     font-size: 1.2rem;
+    width: 50%;
 }
 
 .input{
@@ -56,8 +46,9 @@ form{
     border: none;
     overflow: hidden;
     margin: 0;
-    width: 100%;
+    width: 80%;
     padding: 0.25rem 0;
+    margin-left: 5%;
     background: none;
     font-size: 1.2em;
     font-weight: bold;

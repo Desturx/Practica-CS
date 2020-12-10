@@ -3,44 +3,28 @@
         <div class="card-header" style="text-align: center;">
             <h1 style="word-spacing: 20px;";>Login</h1>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="margin-left: 12%;">
             <form action="/login" method="POST">
                <!-- Correo -->
-               <div class="field">
-                   <label for="email" class="label">Correo</label>
-                   <input type="email" name="email" class="input" placeholder="">
-             
-               </div>
-               <!-- Contraseña -->
-               <div class="field">
-                    <label for="password" class="label">Contraseña</label>
-                    <input type="password" name="pass" id="pass" onkeyup="validatePass();" class="input" placeholder="">
-               </div>
-
-                <div class="strength">
-                    <span id="bar1" class="bar bar-1"></span>
-                    <span id="bar2" class="bar bar-2"></span>
-                    <span id="bar3" class="bar bar-3"></span>
-                    <span id="bar4" class="bar bar-4"></span>
-
+                <div class="field">
+                    <label for="email" class="label">Correo</label>
+                    <input type="email" name="email" class="input" placeholder="">
                 </div>
-                 <ul>
-                    <li><span id="caracteres" class="icon-cancel" ></span>Debe contener al menos 6 carácteres</li>
-                    <li><span id="mayus" class="icon-cancel"></span>Debe contener al menos una letra mayúscula</li>
-                    <li><span id="num" class="icon-cancel"></span></span>Debe contener al menos un número</li>
-                    <li><span id="especial" class="icon-cancel"></span>Debe contener al menos un carácter especial ($&+,.:;=?@#_)</li>
-                </ul>
+                <!-- Contraseña -->
+                <div class="field">
+                    <label for="password" class="label">Contraseña</label>
+                    <input type="password" name="pass" class="input" placeholder="">
+                </div>
+                <label style="margin-left:5%" class="custom-control-label" for="customCheck1">Recordarme</label>
 
 
-
-                <p><a href="/registro"> Registrarse</a></p>
                 <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errorMensaje"> </p>
-                 <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; width: 20%">
+                 <button class="btn btn-primary btn-block" style="margin-left: auto; margin-right: auto; margin-top:60px; width:auto ">
                     Iniciar sesión
                 </button>
+                <p style="text-align: center;"><a href="/registro"> Registrarse</a></p>
                 <div class="custom-control custom-checkbox">
                     <input name="recordarme" type="checkbox" class="custom-control-input" id="customCheck1" checked="">
-                    <label class="custom-control-label" for="customCheck1">Recordarme</label>
                 </div>
             </form>
         </div>
