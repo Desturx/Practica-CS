@@ -72,145 +72,104 @@ function cerrar()
 }
 
 
+let cont = 0;
+function validatePass()
+{
+    var Ipass  = document.getElementById("pass");
+    var charCheck = document.getElementById("caracteres");
+    var mayusCheck = document.getElementById("mayus");
+    var numCheck = document.getElementById("num");
+    var specialCheck = document.getElementById("especial");
 
-function validatePass() {
-    //comprueba si la longitud es 6 o mayor
-    if(document.getElementById("pass").value.length >= 6){
-        document.getElementById("caracteres").className = "icon-check";
-        if(document.getElementById("bar1").className == "bar bar-1"){
-            console.log(document.getElementById("bar1").className == "bar bar-1");
-            document.getElementById("bar1").className = "bar2 bar-1";
+    validations = [
+        (Ipass.value.length >= 6),
+        (Ipass.value.search(/[A-Z]/) > -1),
+        (Ipass.value.search(/[0-9]/) > -1),
+        (Ipass.value.search(/[.$&+,:;=?@#_]/) > -1)
+    ]
 
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar2").className = "bar2 bar-2";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar3").className = "bar2 bar-3";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar4").className = "bar2 bar-4";
-        }
+    strenght = validations.reduce((acc, curr) => acc + curr);
 
+    // Comprobar longitud
+    if(Ipass.value.length >= 6)
+    {
+        charCheck.className = "icon-check";
     }
-    else{
-        document.getElementById("caracteres").className = "icon-cancel";
-        if(document.getElementById("bar4").className == "bar2 bar-4"){
-            document.getElementById("bar4").className == "bar bar-4";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar3").className = "bar bar-3";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar2").className = "bar bar-2";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar1").className = "bar bar-1";
-        }
+    else
+    {
+        charCheck.className = "icon-cancel";
     }
 
-
-    //comprueba si hay mayus
-    if(document.getElementById("pass").value.search(/[A-Z]/) > -1){
-        document.getElementById("mayus").className = "icon-check";
-        if(document.getElementById("bar1").className == "bar bar-1"){
-            console.log(document.getElementById("bar1").className == "bar bar-1");
-            document.getElementById("bar1").className = "bar2 bar-1";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar2").className = "bar2 bar-2";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar3").className = "bar2 bar-3";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar4").className = "bar2 bar-4";
-        }
+    // comprobar las mayusculas
+    if(Ipass.value.search(/[A-Z]/) > -1)
+    {
+        mayusCheck.className = "icon-check";
     }
-    else{
-        document.getElementById("mayus").className = "icon-cancel";
-        document.getElementById("caracteres").className = "icon-cancel";
-        if(document.getElementById("bar4").className == "bar2 bar-4"){
-            document.getElementById("bar4").className == "bar bar-4";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar3").className = "bar bar-3";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar2").className = "bar bar-2";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar1").className = "bar bar-1";
-        }
+    else
+    {
+        mayusCheck.className = "icon-cancel";
     }
 
-    //comprueba si contiene algun numero
-    if(document.getElementById("pass").value.search(/[0-9]/) > -1){
-        document.getElementById("num").className = "icon-check";
-        if(document.getElementById("bar1").className == "bar bar-1"){
-            console.log(document.getElementById("bar1").className == "bar bar-1");
-            document.getElementById("bar1").className = "bar2 bar-1";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar2").className = "bar2 bar-2";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar3").className = "bar2 bar-3";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar4").className = "bar2 bar-4";
-        }
+    // Comprobar número
+    if(Ipass.value.search(/[0-9]/) > -1)
+    {
+        numCheck.className = "icon-check";
     }
-    else{
-        document.getElementById("num").className = "icon-cancel";
-        if(document.getElementById("bar4").className == "bar2 bar-4"){
-            document.getElementById("bar4").className == "bar bar-4";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar3").className = "bar bar-3";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar2").className = "bar bar-2";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar1").className = "bar bar-1";
-        }
+    else
+    {
+        numCheck.className = "icon-cancel";
     }
 
-    //comprueba si tiene caracter especial
-    if(document.getElementById("pass").value.search(/[.$&+,:;=?@#_]/) > -1){
-        document.getElementById("especial").className = "icon-check";
-        if(document.getElementById("bar1").className == "bar bar-1"){
-            console.log(document.getElementById("bar1").className == "bar bar-1");
-            document.getElementById("bar1").className = "bar2 bar-1";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar2").className = "bar2 bar-2";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar3").className = "bar2 bar-3";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar4").className = "bar2 bar-4";
-        }
+    // Comprobar carácter especial
+    if(Ipass.value.search(/[.$&+,:;=?@#_]/) > -1)
+    {
+        specialCheck.className = "icon-check";
     }
-    else{
-        document.getElementById("especial").className = "icon-cancel";
-        if(document.getElementById("bar4").className == "bar2 bar-4"){
-            document.getElementById("bar4").className == "bar bar-4";
-        }
-        else if(document.getElementById("bar3").className == "bar2 bar-3"){
-            document.getElementById("bar3").className = "bar bar-3";
-        }
-        else if(document.getElementById("bar2").className == "bar2 bar-2"){
-            document.getElementById("bar2").className = "bar bar-2";
-        }
-        else if(document.getElementById("bar1").className == "bar2 bar-1"){
-            document.getElementById("bar1").className = "bar bar-1";
-        }
+    else
+    {
+        specialCheck.className = "icon-cancel";
     }
 
-   
 
+    var bar1 = document.getElementById("bar1");
+    var bar2 = document.getElementById("bar2");
+    var bar3 = document.getElementById("bar3");
+    var bar4 = document.getElementById("bar4");
+    // Colocamos los valores de la barra
+    if(strenght > 0)
+    {
+        bar1.className = "bar-show bar-1";
+    }
+    else
+    {
+        bar1.className = "bar bar-1";
+    }
 
+    if(strenght > 1)
+    {
+        bar2.className = "bar-show bar-2";
+
+    }
+    else
+    {
+        bar2.className = "bar bar-2";
+    }
+
+    if(strenght > 2) 
+    {
+        bar3.className ="bar-show bar-3";
+    }
+    else
+    {   
+        bar3.className = "bar bar-3";
+    }
+
+    if(strenght > 3)
+    {
+        bar4.className ="bar-show bar-4"
+    }
+    else
+    {
+        bar4.className = "bar bar-4";
+    }
 }

@@ -104,16 +104,19 @@ ul {
     box-shadow: inset 0px 20px #1f1f1f;
   }
 
-.bar2 {
+.bar-show {
     margin-right: 5px;
     height: 100%;
     width: 25%;
     transition: box-shadow 500ms;
 }
 
+/*
 .bar-show {
     box-shadow: none;
 }
+*/
+
 .bar-1 {
 background: linear-gradient(to right, red, orangered);
 }
