@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
+const cryptico = require('cryptico');
 const saltRounds = 10;
 const db = admin.database();
 
@@ -47,11 +48,15 @@ router.post('/new-user', (req, res) => {
                 }
 
                 if(check1 && check2){
+                    var publicKey = cryptico.generateRSAKey(req.body.pass, 1024);
+                    var publicKeyString = cryptico.publicKeyString(publicKey);    
+                    console.log(publicKey);
                     var hash = bcrypt.hashSync(req.body.pass, saltRounds);
                     var user = {
                         name: req.body.name,
                         pass: hash,
-                        email: req.body.email
+                        email: req.body.email,
+                        pkey: publicKeyString
                     };
                    
                     db.ref('usuarios').push(user);
