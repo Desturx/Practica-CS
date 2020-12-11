@@ -71,6 +71,33 @@ function cerrar()
 	document.querySelector('modal').remove();
 }
 
+function verContra(objeto, input){
+    // var showOjo =   document.getElementById("ojo");
+    // var contra = document.getElementById("pass");
+    // var repiteContra = document.getElementById("repitePass");
+    console.log("asdasd");
+    
+    if(objeto.className == "icon-eye-off"){
+        // showOjo.className = "icon-eye";
+        // contra.type = "text";
+        // repiteContra.type = "text";
+        objeto.className = "icon-eye";
+        input.type = "text";
+        
+    }
+    else{
+        // showOjo.className = "icon-eye-off";
+        // contra.type = "password";
+        // repiteContra.type = "password";
+        objeto.className = "icon-eye-off";
+        input.type = "password";
+    }
+
+    
+
+    
+
+}
 
 let cont = 0;
 function validatePass()

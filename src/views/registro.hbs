@@ -13,7 +13,7 @@
                 <!-- Correo -->
                 <div class="field">
                     <label for="email" class="label">Correo</label>
-                    <input type="email" name="email" class="input" placeholder="ej: miCorreo@gmail.com">
+                    <input type="email" name="email" class="input" placeholder="Ej: miCorreo@gmail.com">
                 </div>
                 <p style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #e74c3c;" id="errEmail"> </p>
                 <!-- Contraseña -->
@@ -22,9 +22,11 @@
 
                     <label for="pass" class="label">Contraseña</label>
                     <input type="password" name="pass" class="input" id="pass" onkeyup="validatePass();" placeholder="Contraseña">
+                    <span class="icon-eye-off" onclick="verContra(this, document.getElementById('pass'))"></span>
                 </div>
-                    <div class="field" style="margin-top: 0px; width: 60%; float: right;">
-                    <input type="password" name="repitepass" class="input" style="margin-left: 8px" placeholder="Repita la contraseña">
+                    <div class="field" style="margin-top: 0px; width: 65%; float: right;">
+                    <input type="password" name="repitePass" id="repitePass" class="input" style="margin-left: 0px" placeholder="Repita la contraseña">
+                    <span class="icon-eye-off" onclick="verContra(this, document.getElementById('repitePass'))"></span>
                 </div>
 
                 <div>
