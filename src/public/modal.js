@@ -47,7 +47,7 @@ function shareModal(key)
     html += '<div style="text-align: center" class="modal-body">';
     html += '<form action="/share/'+key+'" method="POST">'
     html += '<label for="email">Escribe un correo para mandar el archivo:</label>'
-    html += '<input type="text" name="email">'
+    html += '<input type="text" name="email" required>'
     html += '<button class="btn btn-info">Enviar</button>';
     html += '</form>'
     html += '</div>';
