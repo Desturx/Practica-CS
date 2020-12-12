@@ -154,12 +154,9 @@ router.get('/delete-object/:id', (req, res) => {
 
 router.post('/share/:id', (req, res) => {
     // Primero saco la pkey del usuario con su email.
-    // db.ref('usuarios/').orderByKey().startAt(req.body.email).once('value', (snapshot) => {
-
     db.ref('/usuarios').orderByChild('email').equalTo(req.body.email).once('value', (snapshot) => {
         var userPkey;
         var userId;
-        //console.log(snapshot.val());
         var exists = false;
         snapshot.forEach(function (childSnapshot) {
             var value = childSnapshot.val();
@@ -181,10 +178,8 @@ router.post('/share/:id', (req, res) => {
                 var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
                 var decryptedPass = cryptico.decrypt(values.clave, publicKey);
                 
-                //console.log(decryptedPass);
                 // Compruebo si es un archivo o un texto.
                 var encryptPassword = cryptico.encrypt(decryptedPass.plaintext, userPkey);
-                //console.log(encryptPassword);
                 // los encripto con la clave del otro usuario
 
                 // los coloco en el objeto
