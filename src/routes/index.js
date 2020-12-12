@@ -157,43 +157,50 @@ router.post('/share/:id', (req, res) => {
     // db.ref('usuarios/').orderByKey().startAt(req.body.email).once('value', (snapshot) => {
 
     db.ref('/usuarios').orderByChild('email').equalTo(req.body.email).once('value', (snapshot) => {
-            var userPkey;
-            var userId;
-            console.log(snapshot.val());
-            snapshot.forEach(function (childSnapshot) {
-                var value = childSnapshot.val();
-                userId = childSnapshot.key;
-                userPkey = value.pkey;
-            });
-
-        // hago una petición a la base de datos própia para sacar el archivo, encriptarlo y mandarlo al nuevo usuario
-        db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).once('value', (snapshot) => {
-            var values = snapshot.val();
-            // primero desencripto los archivos
-            // desencriptar la contraseña
-            var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
-            var decryptedPass = cryptico.decrypt(values.clave, publicKey);
-            
-            //console.log(decryptedPass);
-            // Compruebo si es un archivo o un texto.
-            var encryptPassword = cryptico.encrypt(decryptedPass.plaintext, userPkey);
-            //console.log(encryptPassword);
-            // los encripto con la clave del otro usuario
-
-            // los coloco en el objeto
-            var cipherObject = {
-                datos: values.datos,
-                nombre: values.nombre,
-                clave: encryptPassword.cipher,
-                tipo: values.tipo
-            };
-
-            // subo el objeto
-            db.ref('usuarios/'+ userId +'/objetos' ).push(cipherObject); // Subo el objeto a la base de datos.
+        var userPkey;
+        var userId;
+        //console.log(snapshot.val());
+        var exists = false;
+        snapshot.forEach(function (childSnapshot) {
+            var value = childSnapshot.val();
+            userId = childSnapshot.key;
+            userPkey = value.pkey;
+            if(value.email == req.body.email)
+            {
+                exists = true;
+            }
         });
 
+        if(exists)
+        {
+            // hago una petición a la base de datos própia para sacar el archivo, encriptarlo y mandarlo al nuevo usuario
+            db.ref('usuarios/'+ req.session.idUsu +'/objetos/' + req.params.id).once('value', (snapshot) => {
+                var values = snapshot.val();
+                // primero desencripto los archivos
+                // desencriptar la contraseña
+                var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
+                var decryptedPass = cryptico.decrypt(values.clave, publicKey);
+                
+                //console.log(decryptedPass);
+                // Compruebo si es un archivo o un texto.
+                var encryptPassword = cryptico.encrypt(decryptedPass.plaintext, userPkey);
+                //console.log(encryptPassword);
+                // los encripto con la clave del otro usuario
+
+                // los coloco en el objeto
+                var cipherObject = {
+                    datos: values.datos,
+                    nombre: values.nombre,
+                    clave: encryptPassword.cipher,
+                    tipo: values.tipo
+                };
+
+                // subo el objeto
+                db.ref('usuarios/'+ userId +'/objetos' ).push(cipherObject); // Subo el objeto a la base de datos.
+            });
+        }
     });
-    res.redirect('/');    
+    res.redirect('/');
 })
 module.exports = router; // Exporto el objeto router.
 

@@ -30,16 +30,6 @@ router.post('/login', (req, res) => {
                         // sacamos el id del usuario para luego hacer push en la base de datos.
                         req.session.idUsu = childSnapshot.key; 
                         req.session.pass = req.body.pass;
-                        /*
-                        if(req.body.recordarme == "on")
-                        {
-                            // Aqui usaríamos cookies
-                            console.log("EL USUARIO QUIERE RECORDAR SU INICIO DE SESION");
-                            console.log("Actual remember"+userSessionController.getValue());
-                            userSessionController.setValue(true);
-                            console.log("Actual remember"+userSessionController.getValue());
-                        } 
-                        */
                     }
                 }
 

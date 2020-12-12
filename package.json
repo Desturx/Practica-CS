@@ -2,9 +2,21 @@
   "name": "Practica-CS",
   "version": "1.0.0",
   "description": "Implementación de un servicio de contenidos multimedia para la asignatura de Compresión y Seguridad",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.electron.practica-cs",
+    "mac": {
+      "icon": "./candado-icono.png",
+      "category": "public.app-category.security"
+    },
+    "win": {
+      "icon": "./candado-icono.png"
+    }
   },
   "repository": {
     "type": "git",
@@ -30,6 +42,8 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "electron": "^11.1.0",
+    "electron-builder": "^22.9.1",
     "nodemon": "^2.0.4"
   }
 }
