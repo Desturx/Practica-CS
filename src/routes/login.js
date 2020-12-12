@@ -10,6 +10,10 @@ router.get('/login', (req, res)=> {
     // console.log('Index works!');
     // res.send('received');
     res.render('login');
+    req.session.idUsu = null; 
+    req.session.pass = null;
+    req.session.logueado = false;
+
 });
 
 router.post('/login', (req, res) => {
