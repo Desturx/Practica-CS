@@ -27,9 +27,7 @@ function randomid(length)
 }
 
 router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros, request y response.
-    // console.log('Index works!');
-    // res.send('received');
-    userIDreload = req.session.idUsu;
+
     if(req.session.logueado) // si el usuario se ha logueado
     {
         db.ref('usuarios/'+ req.session.idUsu +'/objetos').once('value', (snapshot) => {
