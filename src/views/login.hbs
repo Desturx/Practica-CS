@@ -4,7 +4,7 @@
             <h1 style="word-spacing: 20px;";>Login</h1>
         </div>
         <div class="card-body" style="margin-left: 12%;">
-            <form action="/login" method="POST">
+            <form id="form2" action="/login" method="POST">
                <!-- Correo -->
                 <div class="field">
                     <label for="email" class="label">Correo</label>
@@ -25,7 +25,7 @@
                 </button>
                 <p style="text-align: center;"><a href="/registro"> Registrarse</a></p>
                 <div class="custom-control custom-checkbox">
-                    <input name="recordarme" type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+                    <input name="recordarme" type="checkbox" class="custom-control-input" id="customCheck1" checked="guardarUsuario()">
                 </div>
             </form>
         </div>
