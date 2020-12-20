@@ -151,6 +151,7 @@ router.get('/delete-object/:id', (req, res) => {
     res.redirect('/');
 }); 
 
+//compartir archivos
 
 router.post('/share/:id', (req, res) => {
     // Primero saco la pkey del usuario con su email.
@@ -178,7 +179,6 @@ router.post('/share/:id', (req, res) => {
                 var RSAkeys = cryptico.generateRSAKey(req.session.pass, Bits);
                 var decryptedPass = cryptico.decrypt(values.clave, RSAkeys);
                 
-                // Compruebo si es un archivo o un texto.
                 var encryptPassword = cryptico.encrypt(decryptedPass.plaintext, userPkey);
                 // los encripto con la clave del otro usuario
 
