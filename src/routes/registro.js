@@ -48,9 +48,9 @@ router.post('/new-user', (req, res) => {
                 }
 
                 if(check1 && check2){
-                    var publicKey = cryptico.generateRSAKey(req.body.pass, 1024);
-                    var publicKeyString = cryptico.publicKeyString(publicKey);    
-                    console.log(publicKey);
+                    var RSAkeys = cryptico.generateRSAKey(req.body.pass, 1024);
+                    var publicKeyString = cryptico.publicKeyString(RSAkeys);    
+                    //console.log(RSAkeys);
                     var hash = bcrypt.hashSync(req.body.pass, saltRounds);
                     var user = {
                         name: req.body.name,

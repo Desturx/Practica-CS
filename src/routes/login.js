@@ -3,7 +3,7 @@ const router = Router(); // me devuelve un objeto que voy a exportar
 const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
 
-const modalTools = require('../public/modal');
+//const modalTools = require('../public/modal');
 const db = admin.database();
 
 router.get('/login', (req, res)=> { 

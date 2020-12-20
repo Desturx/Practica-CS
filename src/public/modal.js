@@ -65,7 +65,7 @@ function falloSubirArchivo()
 {
     let html,div;
 
-    console.log("ha entrado");
+    //console.log("ha entrado");
     div = document.createElement('div');
     div.classList.add('modal');
     div.setAttribute("id","ventana");
@@ -106,7 +106,7 @@ function verContra(objeto, input){
     // var showOjo =   document.getElementById("ojo");
     // var contra = document.getElementById("pass");
     // var repiteContra = document.getElementById("repitePass");
-    console.log("asdasd");
+    //console.log("asdasd");
     
     if(objeto.className == "icon-eye-off"){
         // showOjo.className = "icon-eye";

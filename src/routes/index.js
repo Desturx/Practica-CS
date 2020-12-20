@@ -33,7 +33,7 @@ router.get('/', (req, res)=> {   // crear ruta get que me detecta dos parametros
         db.ref('usuarios/'+ req.session.idUsu +'/objetos').once('value', (snapshot) => {
             var data = snapshot.val();
             res.render('index', { objects: data });
-            console.log("está actualizandose");
+            //console.log("está actualizandose");
         });
     }
     else // si el usuario no se ha logeado se hace redirect a login
@@ -50,8 +50,8 @@ router.post('/new-encrypted-file', (req, res) => {
     {
         var password = randomid(32);
         // Encripto la contraseña.
-        var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
-        var publicKeyString = cryptico.publicKeyString(publicKey);       
+        var RSAkeys = cryptico.generateRSAKey(req.session.pass, Bits);
+        var publicKeyString = cryptico.publicKeyString(RSAkeys);       
         var encryptPassword = cryptico.encrypt(password, publicKeyString);
 
 
@@ -92,8 +92,8 @@ router.get('/download-decrypted-object/:id', (req, res) => {
         var values = snapshot.val();  // estos son los valores que hay en la coleccion.
         
         // desencriptar la contraseña
-        var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
-        var decryptedPass = cryptico.decrypt(values.clave, publicKey);
+        var RSAkeys = cryptico.generateRSAKey(req.session.pass, Bits);
+        var decryptedPass = cryptico.decrypt(values.clave, RSAkeys);
 
         // Compruebo si es un archivo o un texto.
         if(values.tipo != "text/plain") // Si es de tipo archivo
@@ -175,8 +175,8 @@ router.post('/share/:id', (req, res) => {
                 var values = snapshot.val();
                 // primero desencripto los archivos
                 // desencriptar la contraseña
-                var publicKey = cryptico.generateRSAKey(req.session.pass, Bits);
-                var decryptedPass = cryptico.decrypt(values.clave, publicKey);
+                var RSAkeys = cryptico.generateRSAKey(req.session.pass, Bits);
+                var decryptedPass = cryptico.decrypt(values.clave, RSAkeys);
                 
                 // Compruebo si es un archivo o un texto.
                 var encryptPassword = cryptico.encrypt(decryptedPass.plaintext, userPkey);
